@@ -1,0 +1,143 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shapescircle-deployment
+  labels:
+    type: circle
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: circle
+  template:
+    metadata:
+      labels:
+        type: circle
+    spec:
+      containers:
+      - name: shapecircle
+        image: msrinivascharan/shape_circle:v1
+        ports:
+        - containerPort: 3333
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: shapecircle-service
+  spec:
+    selector:
+      type: circle
+    ports:
+    - protocol: TCP
+      port: 8011
+      targetPort: 3333
+      name: internal
+    type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shapessquare-deployment
+  labels:
+    type: square
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: square
+  template:
+    metadata:
+      labels:
+        type: square
+    spec:
+      containers:
+      - name: shapesquare
+        image: msrinivascharan/shape_square:v1
+        ports:
+        - containerPort: 3334
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: shapesquare-service
+  spec:
+    selector:
+      type: square
+    ports:
+    - protocol: TCP
+      port: 8012
+      targetPort: 3334
+      name: internal
+    type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+      name: shapestriangle-deployment
+      labels:
+        type: triangle
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: triangle
+  template:
+    metadata:
+      labels:
+        type: triangle
+    spec:
+      containers:
+      - name: shapetriangle
+        image: msrinivascharan/shape_triangle:v1
+        ports:
+        - containerPort: 3335
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: shapetriangle-service
+  spec:
+    selector:
+      type: triangle
+    ports:
+    - protocol: TCP
+      port: 8013
+      targetPort: 3335
+      name: internal
+    type: ClusterIP
+---
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+        name: shapeshexagone-deployment
+        labels:
+          type: hexagone
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        type: hexagone
+    template:
+      metadata:
+        labels:
+          type: hexagone
+      spec:
+        containers:
+        - name: shapehexagone
+          image: msrinivascharan/shape_hexagone:v1
+          ports:
+          - containerPort: 3336
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: shapehexagone-service
+  spec:
+    selector:
+      type: hexagone
+    ports:
+    - protocol: TCP
+      port: 8014
+      targetPort: 3336
+      name: internal
+    type: ClusterIP
