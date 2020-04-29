@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: shapes.acc-fanout
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: shapes.acc.com
+    http:
+      paths:
+      - path: /crc
+        backend:
+          serviceName: shapecircle-service
+          servicePort: 8011
+      - path: /sqr
+        backend:
+          serviceName: shapesquare-service
+          servicePort: 8012
+      - path: /tri
+        backend:
+           serviceName: shapetriangle-service
+           servicePort: 8013
+      - path: /hex
+        backend:
+           serviceName: shapehexagone-service
+           servicePort: 8014
