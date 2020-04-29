@@ -141,3 +141,39 @@ spec:
       targetPort: 3336
       name: internal
     type: ClusterIP
+---
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+        name: shapesdefaultbackend-deployment
+        labels:
+          type: defaultbackend
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        type: defaultbackend
+    template:
+      metadata:
+        labels:
+          type: defaultbackend
+      spec:
+        containers:
+        - name: shapedefaultbackend
+          image: msrinivascharan/ingress_default_backend:v1
+          ports:
+          - containerPort: 3337
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: defaultbackend-service
+  spec:
+    selector:
+      type: defaultbackend
+    ports:
+    - protocol: TCP
+      port: 8015
+      targetPort: 3337
+      name: internal
+    type: ClusterIP
